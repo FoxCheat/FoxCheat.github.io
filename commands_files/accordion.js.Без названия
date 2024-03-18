@@ -1,0 +1,22 @@
+function toggleAccordion(index) {
+  const accordionItem = document.querySelectorAll('.accordion-item')[index];
+  const accordionContent = accordionItem.querySelector('.accordion-content');
+  const accordionIcon = accordionItem.querySelector('.accordion-icon');
+
+  accordionItem.classList.toggle('active');
+  accordionContent.classList.toggle('active');
+  accordionIcon.textContent = accordionItem.classList.contains('active') ? '-' : '+';
+}
+
+function toggleMessage(index) {
+  var buttons = document.getElementsByClassName("toggle-button");
+  var messages = document.getElementsByClassName("message");
+
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove("active");
+    messages[i].classList.remove("active");
+  }
+
+  buttons[index].classList.add("active");
+  messages[index].classList.add("active");
+}

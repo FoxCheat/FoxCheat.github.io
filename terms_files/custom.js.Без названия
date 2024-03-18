@@ -1,0 +1,115 @@
+
+  (function ($) {
+  
+  "use strict";
+
+    // MENU
+    $('.navbar-collapse a').on('click',function(){
+      $(".navbar-collapse").collapse('hide');
+    });
+    
+    // CUSTOM LINK
+    $('.smoothscroll').click(function(){
+      var el = $(this).attr('href');
+      var elWrapped = $(el);
+      var header_height = $('.navbar').height();
+  
+      scrollToDiv(elWrapped,header_height);
+      return false;
+  
+      function scrollToDiv(element,navheight){
+        var offset = element.offset();
+        var offsetTop = offset.top;
+        var totalScroll = offsetTop-navheight;
+  
+        $('body,html').animate({
+        scrollTop: totalScroll
+        }, 300);
+      }
+    });
+  
+  })(window.jQuery);
+
+document.addEventListener("DOMContentLoaded", function() {
+    var img = new Image();
+    var progressBar = document.querySelector('.progress-bar');
+    var overlay = document.querySelector('.overlay');
+
+    img.onload = function() {
+        setTimeout(function() {
+            overlay.style.opacity = 0;
+            progressBar.style.opacity = 0;
+        }, 500);
+    };
+
+    img.onprogress = function(event) {
+        if (event.lengthComputable) {
+            var complete = (event.loaded / event.total * 100 | 0);
+            progressBar.style.width = complete + "%";
+        }
+    };
+
+    img.src = 'https://cdn.glitch.global/2690e3d0-b364-4607-add9-817719babc5c/ba453nner%20(1).jpg?v=1710427278227';
+
+    document.querySelector('.hero-section').classList.add('loaded');
+});
+
+function showInfo(index) {
+  const logos = document.querySelectorAll('.logo-monitoring');
+  const textItems = document.querySelectorAll('.text-info li');
+
+  logos.forEach((logo, i) => {
+    logo.classList.remove('activee');
+  });
+
+  logos[index].classList.add('activee');
+
+  textItems.forEach((item, i) => {
+    if (i === index) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
+    document.body.style.cursor = 'progress';
+
+    window.addEventListener("load", function() {
+        document.body.style.cursor = 'unset';
+        var loaderContainer = document.querySelector('.loader-container');
+        loaderContainer.style.display = 'none';
+    });
+
+
+          function searchCommands(query) {
+              const lowercaseQuery = query.toLowerCase();
+
+              const headers = document.querySelectorAll('.accordion-header');
+
+              let foundCommands = 0;
+              headers.forEach((header, index) => {
+                  const commandName = header.querySelector('name').innerText.toLowerCase();
+                  const accordionItem = header.closest('.accordion-item');
+
+                  if (commandName.includes(lowercaseQuery)) {
+                      accordionItem.style.display = 'block';
+                      foundCommands++;
+                  } else {
+                      accordionItem.style.display = 'none';
+                  }
+              });
+
+              // Отображение сообщения, если не найдено ни одной команды
+              const searchResultMessage = document.getElementById('searchResultMessage');
+              if (foundCommands === 0) {
+                  searchResultMessage.innerText = 'Ничего не найдено...';
+              } else {
+                  searchResultMessage.innerText = '';
+              }
+          }
+
+          const searchInput = document.getElementById('searchInput');
+          searchInput.addEventListener('input', (event) => {
+              searchCommands(event.target.value);
+          });
